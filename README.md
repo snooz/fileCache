@@ -4,8 +4,52 @@ I had to do with a hosting company that just refused to enable memcache/memcache
 I'm including both a procedural version and a class version.
 
 ## Tested on:
-PHP 5.6
+PHP 5.6\
 PHP 7.3
+
+## How is this different from memcache/memcached/redis
+The main difference is that this stores the data in json files on the harddrive and when you fetch the data you specify how old the data is that you load rather than how old the data is until it expires when you save it as you do in a memory cache server as this doesn't contain a server software.
+
+
+## Procedural usage
+Include the cache.php for the Procedural version such as:
+```php
+<?php
+require 'cache.php';
+```
+
+### fileCacheGet($key, $ttl)
+$key: String value for your cache key\
+$ttl: How old cache you can load
+
+### fileCacheSet($key, $data)
+$key: String value for your cache key\
+$data: The data to store
+  
+### fileCacheDelete($key)
+$key: Deletes the cache file for this cache
+
+## Class usage
+Include the class_filecache.php for the Class version
+```php
+<?php
+require 'class_filecache.php';
+$cache = new fileCache();
+```
+
+### $cache::get($key, $ttl)
+$key: String value for your cache key\
+$ttl: How old cache you can load
+
+### $cache::set($key, $data)
+$key: String value for your cache key\
+$data: The data to store
+  
+### $cache::delete($key)
+$key: Deletes the cache file for this cache
+
+## Author
+Peter Palma aka "snooz"
 
 ## License
 MIT License, see included LICENSE file.
