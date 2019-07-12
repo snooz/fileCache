@@ -20,7 +20,7 @@ require 'cache.php';
 
 ### fileCacheGet($key, $ttl)
 $key: String value for your cache key\
-$ttl: How old cache you can load
+$ttl: How old cache you can load specified as seconds, default 120 seconds
 
 ### fileCacheSet($key, $data)
 $key: String value for your cache key\
@@ -39,7 +39,7 @@ $cache = new fileCache();
 
 ### $cache::get($key, $ttl)
 $key: String value for your cache key\
-$ttl: How old cache you can load
+$ttl: How old cache you can load specified as seconds, default 120 seconds
 
 ### $cache::set($key, $data)
 $key: String value for your cache key\
