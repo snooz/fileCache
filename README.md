@@ -59,5 +59,8 @@ $key: Deletes the cache file for this cache
 ## Author
 Peter Palma
 
+### Donate to the project
+[Buy me a Pizza](https://www.buymeacoffee.com/peterpalma)
+
 ## License
 MIT License, see included LICENSE file.
