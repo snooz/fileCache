@@ -1,5 +1,5 @@
 {
-  "name": "palma/file-cache",
+  "name": "peterpalma/file-cache",
   "description": "Stores cache on disk rather than in a database",
   "license": "MIT",
   "authors": [
