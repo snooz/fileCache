@@ -6,22 +6,22 @@
 	Procedural version
 */
 
-define('CACHE_VERSION','1-'); // Change value to reset cache, must be filesystem friendly.
-define('CACHE_FOLDER', '/var/www/cache/'); // Set the filecache folder
+const CACHE_VERSION = '1-'; // Change value to reset cache, must be filesystem friendly.
+const CACHE_FOLDER = '/var/www/cache/'; // Set the filecache folder
 
 /*
 	UTF-8 Encode an array
 */
 if (!function_exists('utf8_encode_array')) {
-    function utf8_encode_array($d) {
-        if (is_array($d)) {
-            foreach ($d as $k => $v) {
-                $d[$k] = utf8_encode_array($v);
+    function utf8_encode_array(string|array $data): string|array|false {
+        if (is_array($data)) {
+            foreach ($data as $key => $value) {
+                $data[$key] = utf8_encode_array($value);
             }
-        } elseif (is_string ($d)) {
-            return utf8_encode($d);
+        } elseif (is_string ($data)) {
+            return mb_convert_encoding($data, 'UTF-8');
         }
-        return $d;
+        return $data;
     }
 }
 
@@ -29,15 +29,15 @@ if (!function_exists('utf8_encode_array')) {
 	UTF-8 Decode an array
 */
 if (!function_exists('utf8_decode_array')) {
-    function utf8_decode_array($d) {
-        if (is_array($d)) {
-            foreach ($d as $k => $v) {
-                $d[$k] = utf8_decode_array($v);
+    function utf8_decode_array(string|array $data): string|array|false {
+        if (is_array($data)) {
+            foreach ($data as $key => $value) {
+                $data[$key] = utf8_decode_array($value);
             }
-        } elseif (is_string ($d)) {
-            return utf8_decode($d);
+        } elseif (is_string ($data)) {
+            return mb_convert_encoding($data, 'ISO-8859-1');
         }
-        return $d;
+        return $data;
     }
 }
 
@@ -47,7 +47,7 @@ if (!function_exists('utf8_decode_array')) {
 	$key: String value for your cache key
 	$ttl: How long the cache is valid
 */
-function fileCacheGet($key, $ttl = 120) {
+function fileCacheGet(string $key, int $ttl = 120): mixed {
 	if (!file_exists(CACHE_FOLDER . CACHE_VERSION . $key . '.json')) {
 		return false;
 	}
@@ -72,7 +72,7 @@ function fileCacheGet($key, $ttl = 120) {
 	$key: String value for your cache key
 	$data: The data to store
 */
-function fileCacheSet($key, $data) {
+function fileCacheSet(string $key, mixed $data): bool {
 	if (is_object($data)) {
 		$mode = 'object';
 	} else {
@@ -92,6 +92,9 @@ function fileCacheSet($key, $data) {
 		$fp = fopen(CACHE_FOLDER . CACHE_VERSION . $key . '.json', 'w');
 		fwrite($fp, $fileData);
 		fclose($fp);
+        if (file_exists(CACHE_FOLDER . CACHE_VERSION . $key . '.json')) {
+            return true;
+        }
 	}
 	return false;
 }
@@ -101,7 +104,7 @@ function fileCacheSet($key, $data) {
 	Delete a cache file
 	$key: Deletes the cache file for this cache
 */
-function fileCacheDelete($key) {
+function fileCacheDelete(string $key): bool {
 	if (file_exists(CACHE_FOLDER . CACHE_VERSION . $key . '.json') && is_writable(CACHE_FOLDER . CACHE_VERSION . $key . '.json')) {
 		unlink(CACHE_FOLDER . CACHE_VERSION . $key . '.json');
 		return true;

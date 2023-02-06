@@ -1,0 +1,24 @@
+{
+  "name": "palma/file-cache",
+  "description": "Stores cache on disk rather than in a database",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Peter Palma",
+      "email": "composer@peterpalma.com",
+      "homepage": "https://www.ekonomiapi.se",
+      "role": "Developer"
+    }
+  ],
+  "funding": [
+    {
+      "url": "https://www.buymeacoffee.com/peterpalma",
+      "type": "buymeacoffee"
+    }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "ext-json": "*",
+    "ext-mbstring": "*"
+  }
+}

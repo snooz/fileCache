@@ -1,11 +1,14 @@
-# fileCache
+# FileCache
 I had to do with a hosting company that just refused to enable memcache/memcached/redis because it wasn't a one-click install option in CPanel. So that's why I wrote this class as the storage drives are fast SSDs.
 
 I'm including both a procedural version and a class version.
 
 ## Tested on:
-PHP 5.6\
 PHP 7.3
+PHP 7.4
+PHP 8.0
+PHP 8.1
+PHP 8.2
 
 ## How is this different from memcache/memcached/redis
 The main difference is that this stores the data in json files on the harddrive and when you fetch the data you specify how old the data is that you load rather than how old the data is until it expires when you save it as you do in a memory cache server as this doesn't contain a server software.
@@ -30,11 +33,16 @@ $data: The data to store
 $key: Deletes the cache file for this cache
 
 ## Class usage
+Install using composer
+```sh
+composer require palma/file-cache
+```
+
 Include the class_filecache.php for the Class version
 ```php
 <?php
-require 'class_filecache.php';
-$cache = new fileCache();
+require './vendor/autoload.php';
+$cache = new FileCache();
 ```
 
 ### $cache::get($key, $ttl)
@@ -49,7 +57,7 @@ $data: The data to store
 $key: Deletes the cache file for this cache
 
 ## Author
-Peter Palma aka "snooz"
+Peter Palma
 
 ## License
 MIT License, see included LICENSE file.
